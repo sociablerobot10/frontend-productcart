@@ -3,15 +3,17 @@ import empty_cart from "../assets/images/illustration-empty-cart.svg";
 import "./Cart.css";
 import carbon_neutral from "/src/assets/images/icon-carbon-neutral.svg";
 
-function Cart({ items, deleteCartItem }) {
-  const totalCost = () => {
-    let total = 0;
-    for (let item of items) {
-      const cost = item.amount * item.product.price;
-      total += cost;
-    }
-    return total;
-  };
+export const totalCost = (items) => {
+  let total = 0;
+  for (let item of items) {
+    const cost = item.amount * item.product.price;
+    total += cost;
+  }
+  return total;
+};
+
+function Cart({ items, deleteCartItem, toggleReceipt }) {
+  const total = totalCost(items);
 
   const itemsAmout = () => {
     let amount = 0;
@@ -46,7 +48,7 @@ function Cart({ items, deleteCartItem }) {
 
           <p className="cart__cost">
             Order Total
-            <span className="cart__total-cost">${totalCost()}</span>
+            <span className="cart__total-cost">${total}</span>
           </p>
 
           <div className="cart__tip">
@@ -54,7 +56,9 @@ function Cart({ items, deleteCartItem }) {
             This is a <span>carbon-neutral </span>
             delivery
           </div>
-          <button className="cart__order-btn">Confirm Order</button>
+          <button className="cart__order-btn" onClick={toggleReceipt}>
+            Confirm Order
+          </button>
         </>
       )}
     </div>

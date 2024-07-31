@@ -5,8 +5,10 @@ import "./App.css";
 import Card from "./components/Card.jsx";
 import Cart from "./components/Cart.jsx";
 import data from "./data.json"; //No need for JSON.parse(), it seems ES6 automatically converts from json to js for us
-
+import Receipt from "./components/Receipt.jsx";
 function App() {
+  const [openReceipt, setOpenReceipt] = useState(false);
+
   const [items, setItems] = useState([
     {
       amount: 1,
@@ -62,6 +64,15 @@ function App() {
     setItems(newItems);
   }
 
+  function toggleReceipt() {
+    setOpenReceipt((prev) => !prev);
+  }
+
+  function startNewOrder() {
+    setItems([]);
+    toggleReceipt();
+  }
+
   return (
     <>
       <div className="app">
@@ -72,12 +83,17 @@ function App() {
               data={elem}
               key={index}
               addToCart={addToCart}
-              inCart={items.product.name}
+              inCart={elem.product}
             />
           );
         })}
       </div>
-      <Cart items={items} deleteCartItem={deleteCartItem} />
+      <Cart
+        items={items}
+        deleteCartItem={deleteCartItem}
+        toggleReceipt={toggleReceipt}
+      />
+      <Receipt items={items} open={openReceipt} startNewOrder={startNewOrder} />
     </>
   );
 }

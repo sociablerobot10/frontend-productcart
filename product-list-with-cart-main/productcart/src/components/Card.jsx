@@ -1,31 +1,60 @@
 import "./Card.css";
+import { useState } from "react";
 
 export default function Card({ data, addToCart }) {
-  console.log(data);
+  const [hiddenButton, setHiddenButton] = useState("");
+  const [isAddToCartVisible, setisAddToCartVisible] = useState(true);
+  const [itemCount, setItemCount] = useState(0);
+  const decrementValue = () => {
+    if (itemCount > 0) {
+      setItemCount((itemCount) => itemCount - 1);
+    }
+  };
+  const incrementValue = () => {
+    setItemCount((itemCount) => itemCount + 1);
+  };
+  const cardDefaultBtn = document.querySelector(".card__add-to-cart");
+  const addToCartBtn = document.querySelector(".card__add-to-cart-container ");
+  const handleCardBtnClick = () => {
+    setisAddToCartVisible(false);
+  };
+
   return (
     <div className="card">
       <div className="card__img-container">
         <img className="card__img" src={data.image.mobile} alt="Image" />
       </div>
-      <button
-        onClick={() => {
-          addToCart(data);
-        }}
-        className="card__add-to-cart"
-      >
-        <img
-          className="card__add-to-cart-btn"
-          src="./assets/images/icon-add-to-cart.svg"
-        />{" "}
-        Add to cart
-      </button>
-      <button className="card__add-to-cart-btn card__item-added">
-        <img
-          className="card__increment-btn"
-          src="./assets/images/icon-increment-quantity.svg"
-        />{" "}
-      </button>
-
+      {isAddToCartVisible ? (
+        <button onClick={handleCardBtnClick}>
+          <img
+            className="card__add-to-cart-btn"
+            src="./assets/images/icon-add-to-cart.svg"
+          />{" "}
+          Add to cart
+        </button>
+      ) : (
+        <div className="card__add-to-cart-container">
+          <button
+            onClick={incrementValue}
+            className="card__add-to-cart-btn card__item-added"
+          >
+            <img
+              className="card__increment-btn"
+              src="./assets/images/icon-increment-quantity.svg"
+            />{" "}
+          </button>
+          <p className="card__add-to-cart-value">{itemCount}</p>
+          <button
+            onClick={decrementValue}
+            className="card__add-to-cart-btn card__item-added"
+          >
+            <img
+              className="card__decrement-btn"
+              src="./assets/images/icon-decrement-quantity.svg"
+            />{" "}
+          </button>
+        </div>
+      )}
       <div className="card__info">
         <h2 className="card__info-generic">{data.category}</h2>
         <h1 className="card__info-menu-name">{data.name}</h1>

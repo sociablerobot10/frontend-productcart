@@ -4,6 +4,12 @@ import "./CartItem.css";
 function CartItem({ item, deleteCartItem }) {
   return (
     <li className="cartItem">
+      {!deleteCartItem && (
+        <div className="cartItem__img">
+          <img src={item.product.image.thumbnail} alt={item.product.name} />
+        </div>
+      )}
+
       <div className="cartItem__info">
         <h3 className="cartItem__header">{item.product.name}</h3>
         <div>
@@ -17,12 +23,17 @@ function CartItem({ item, deleteCartItem }) {
           </span>
         </div>
       </div>
-      <button
-        className="cartItem__remove-btn"
-        onClick={() => deleteCartItem(item)}
-      >
-        <img src={remove_icon} alt="Remove Icon" />
-      </button>
+
+      {deleteCartItem ? (
+        <button
+          className="cartItem__remove-btn"
+          onClick={() => deleteCartItem(item)}
+        >
+          <img src={remove_icon} alt="Remove Icon" />
+        </button>
+      ) : (
+        <h3>${item.product.price * item.amount}</h3>
+      )}
     </li>
   );
 }

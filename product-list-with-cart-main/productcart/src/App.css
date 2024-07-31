@@ -56,3 +56,7 @@ body {
 .app__title {
   margin-left: 5%;
 }
+
+#root {
+  position: relative;
+}
