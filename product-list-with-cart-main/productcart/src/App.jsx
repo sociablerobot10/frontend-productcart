@@ -10,34 +10,34 @@ function App() {
   const [openReceipt, setOpenReceipt] = useState(false);
 
   const [items, setItems] = useState([
-    {
-      amount: 1,
-      product: {
-        image: {
-          thumbnail: "./src/assets/images/image-waffle-thumbnail.jpg",
-          mobile: "/src/assets/images/image-waffle-mobile.jpg",
-          tablet: "./src/assets/images/image-waffle-tablet.jpg",
-          desktop: "./src/assets/images/image-waffle-desktop.jpg",
-        },
-        name: "Waffle with Berries",
-        category: "Waffle",
-        price: 6.5,
-      },
-    },
-    {
-      amount: 3,
-      product: {
-        image: {
-          thumbnail: "./src/assets/images/image-panna-cotta-thumbnail.jpg",
-          mobile: "./src/assets/images/image-panna-cotta-mobile.jpg",
-          tablet: "./src/assets/images/image-panna-cotta-tablet.jpg",
-          desktop: "./src/assets/images/image-panna-cotta-desktop.jpg",
-        },
-        name: "Vanilla Panna Cotta",
-        category: "Panna Cotta",
-        price: 6.5,
-      },
-    },
+    // {
+    //   amount: 1,
+    //   product: {
+    //     image: {
+    //       thumbnail: "./src/assets/images/image-waffle-thumbnail.jpg",
+    //       mobile: "/src/assets/images/image-waffle-mobile.jpg",
+    //       tablet: "./src/assets/images/image-waffle-tablet.jpg",
+    //       desktop: "./src/assets/images/image-waffle-desktop.jpg",
+    //     },
+    //     name: "Waffle with Berries",
+    //     category: "Waffle",
+    //     price: 6.5,
+    //   },
+    // },
+    // {
+    //   amount: 3,
+    //   product: {
+    //     image: {
+    //       thumbnail: "./src/assets/images/image-panna-cotta-thumbnail.jpg",
+    //       mobile: "./src/assets/images/image-panna-cotta-mobile.jpg",
+    //       tablet: "./src/assets/images/image-panna-cotta-tablet.jpg",
+    //       desktop: "./src/assets/images/image-panna-cotta-desktop.jpg",
+    //     },
+    //     name: "Vanilla Panna Cotta",
+    //     category: "Panna Cotta",
+    //     price: 6.5,
+    //   },
+    // },
   ]); // cart items!
 
   // data.map( ()=> <Card/> ) // arrow function w/o {} doesn't need to use return
@@ -72,6 +72,20 @@ function App() {
     setItems([]);
     toggleReceipt();
   }
+  //what is newamount and what is data?
+  function changeAmount(newAmount, data) {
+    const updatedItems = items.filter((elem) => {
+      if (elem.product != data) {
+        return elem;
+      } else {
+        elem.amount = newAmount;
+        return elem;
+      }
+    });
+
+    console.log("Updated Items - ", updatedItems);
+    setItems(updatedItems);
+  }
 
   return (
     <>
@@ -84,6 +98,7 @@ function App() {
               key={index}
               addToCart={addToCart}
               inCart={elem.product}
+              changeAmount={changeAmount}
             />
           );
         })}

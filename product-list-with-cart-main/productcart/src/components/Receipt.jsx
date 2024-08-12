@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 import { totalCost } from "./Cart.jsx";
 import "./Receipt.css";
 import checkmark from "/assets/images/icon-order-confirmed.svg";
+
 function Receipt({ items, open, startNewOrder }) {
   const total = totalCost(items);
   const ref = useRef();

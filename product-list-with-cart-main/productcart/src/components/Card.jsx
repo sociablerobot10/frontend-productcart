@@ -1,22 +1,26 @@
 import "./Card.css";
 import { useState } from "react";
 
-export default function Card({ data, addToCart }) {
+export default function Card({ data, addToCart, changeAmount }) {
   const [hiddenButton, setHiddenButton] = useState("");
   const [isAddToCartVisible, setisAddToCartVisible] = useState(true);
-  const [itemCount, setItemCount] = useState(0);
+  const [itemCount, setItemCount] = useState(1);
   const decrementValue = () => {
     if (itemCount > 0) {
       setItemCount((itemCount) => itemCount - 1);
     }
+    changeAmount(itemCount, data);
   };
   const incrementValue = () => {
     setItemCount((itemCount) => itemCount + 1);
+    changeAmount(itemCount, data);
   };
+
   const cardDefaultBtn = document.querySelector(".card__add-to-cart");
   const addToCartBtn = document.querySelector(".card__add-to-cart-container ");
   const handleCardBtnClick = () => {
     setisAddToCartVisible(false);
+    addToCart(data);
   };
 
   return (
